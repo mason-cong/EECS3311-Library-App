@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class VisitorApp extends JFrame implements App {
 	
-	//Copmponents to the app screen
+	//Components to the app screen
 	JPanel appScreen;
 	JMenuBar appMenu;
 	

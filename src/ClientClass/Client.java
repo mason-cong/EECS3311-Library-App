@@ -9,5 +9,5 @@ public class Client {
 	protected String password;
 	protected ArrayList<Item> items;
 	protected ArrayList<Newsletters> newsletters;
-	
+		
 }

@@ -1,5 +1,6 @@
 package ManagementTeam;
 
+import ClientClass.Client;
 import ItemClass.Item;
 
 public class Report {
@@ -12,17 +13,9 @@ public class Report {
     public void setEmail(String email) {
         this.email = email;
     }
-
-   public void addItem(Item item) {
-        // Implement the logic to add an item to the system
-        // ...
-    }
-    public void verifyAccount(Account account) {
-        // Implement the logic to verify an account
-        // ...
-    }
-    public void viewReport() {
+    public String viewReport(Client client) {
         // Implement the logic to view the report
         // ...
+    	return "";
     }
 }
