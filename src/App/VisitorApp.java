@@ -1,7 +1,12 @@
 package App;
 
+import ItemClass.Item;
+import ClientClass.Client;
 import javax.swing.*;
+import com.csvreader.CsvReader;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class VisitorApp extends JFrame implements App {
 	
@@ -9,7 +14,7 @@ public class VisitorApp extends JFrame implements App {
 	JPanel appScreen;
 	JMenuBar appMenu;
 	
-	JPanel loginPanel = new JPanel();
+	JPanel loginPanel;
 	JPanel searchPanel = new JPanel();
 	JPanel itemsPanel = new JPanel();
 	JPanel requestPanel = new JPanel();
@@ -19,6 +24,7 @@ public class VisitorApp extends JFrame implements App {
 	public VisitorApp() {
 		this.appScreen = new JPanel(new CardLayout());
 		this.appMenu = new JMenuBar();
+		login();
 		setupMenu();
 		setupPanel();
 	}
@@ -67,17 +73,62 @@ public class VisitorApp extends JFrame implements App {
 	
 	public static void main(String args[]) throws Exception {
 		VisitorApp app = new VisitorApp();
+		
 		app.setSize(1280,960);
 		app.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		app.setVisible(true);
 	}
 	
 	@Override
-	public boolean login() {
-		// TODO Auto-generated method stub
-		return false;
+	public void login() {
+		//Creating the UI
+		JLabel userLabel = new JLabel("Email");
+		JLabel passLabel = new JLabel("Password");
+		JTextField userText = new JTextField();
+		JTextField passText = new JPasswordField();
+		JButton submit = new JButton("SUBMIT");
+		
+		loginPanel = new JPanel(new GridLayout(3, 1));
+		loginPanel.add(userLabel);
+		loginPanel.add(userText);
+		loginPanel.add(passLabel);
+		loginPanel.add(passText);
+		loginPanel.add(submit);
+		
+		submit.addActionListener(e -> checkDetails(userText.getText(), passText.getText()));
+		
 	}
 
+	void checkDetails(String email, String password) {
+		boolean success = false;
+		String path = "C:\\Users\\tusit\\eclipse-workspace\\YorkULibraryApp\\logindetails.csv";
+		try {
+			CsvReader reader = new CsvReader(path); 
+			reader.readHeaders();
+			
+			while(reader.readRecord()) { 
+				Client client = new Client();
+					client.setEmail(reader.get("email"));
+					client.setPassword(reader.get("password"));
+					String clientType = reader.get("type");
+					//System.out.println("1 " + client.email + " " + client.password);
+					//System.out.println("2 " + email + " " + password);
+				if (client.getEmail().equals(email) && client.getPassword().equals(password)) {
+					success = true;
+					break;
+				}
+			}
+		} catch (FileNotFoundException e) {
+            e.printStackTrace();
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		if (success == false) {
+			JOptionPane.showMessageDialog(appScreen, "Incorrect details");
+		} 
+		
+	}
+	
 	@Override
 	public boolean register() {
 		// TODO Auto-generated method stub
