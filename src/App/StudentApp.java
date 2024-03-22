@@ -1,14 +1,28 @@
 package App;
 
-import ItemClass.Item;
-import ClientClass.Client;
-import javax.swing.*;
-import com.csvreader.CsvReader;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class VisitorApp extends JFrame implements App {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import com.csvreader.CsvReader;
+
+import ClientClass.Client;
+
+public class StudentApp extends JFrame implements App {
 	
 	BaseApp decorated;
 	
@@ -23,7 +37,8 @@ public class VisitorApp extends JFrame implements App {
 	JPanel paymentPanel = new JPanel();
 	
 	
-	public VisitorApp() {
+	public StudentApp(BaseApp app) {
+		this.decorated = app;
 		this.appScreen = new JPanel(new CardLayout());
 		this.appMenu = new JMenuBar();
 		login();
@@ -130,7 +145,7 @@ public class VisitorApp extends JFrame implements App {
 		} 
 		
 	}
-	
+
 	@Override
 	public boolean register() {
 		// TODO Auto-generated method stub
@@ -140,19 +155,19 @@ public class VisitorApp extends JFrame implements App {
 	@Override
 	public void manageItems() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void readOnlineBooks() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void requests() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -160,5 +175,4 @@ public class VisitorApp extends JFrame implements App {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }
