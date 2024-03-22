@@ -1,7 +1,7 @@
 package App;
 
 public interface App {
-	public boolean login();
+	public void login();
 	public boolean register();
 	public void manageItems();
 	public void readOnlineBooks();
