@@ -144,12 +144,12 @@ public class BaseApp extends JFrame implements App {
 	public void decorateApp() {
 		switch(clientType) {
 		  	case "Faculty":
-		  		//FacultyApp app = new StudentApp(this);
+		  		FacultyApp app1 = new FacultyApp(this);
 	  		 	appMenu.setVisible(true);
 				changeScreen("Rented Items");
 		    break;
 		  	case "NonFacultyStaff":
-		  		//NonFacultyStaffApp app = new StudentApp(this);
+		  		NonFacultyStaffApp app2 = new NonFacultyStaffApp(this);
 	  		 	appMenu.setVisible(true);
 				changeScreen("Rented Items");
 		    break;
@@ -159,7 +159,7 @@ public class BaseApp extends JFrame implements App {
 					changeScreen("Rented Items");
 			break;
 		  	case "Visitor":
-		  		//VisitorApp app = new StudentApp(this);
+		  		VisitorApp app3 = new VisitorApp(this);
 	  		 	appMenu.setVisible(true);
 				changeScreen("Rented Items");
 		  	break;
@@ -195,8 +195,7 @@ public class BaseApp extends JFrame implements App {
 	}
 
 	@Override
-	public boolean payment() {
-		return false;
+	public void payment() {
 	}
 
 	public void changePayment(String strategy) {

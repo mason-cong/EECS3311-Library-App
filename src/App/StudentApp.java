@@ -160,8 +160,7 @@ public class StudentApp extends JFrame implements App {
 	}
 
 	@Override
-	public boolean payment() {
-		// TODO Auto-generated method stub
-		return false;
+	public void payment() {
+
 	}
 }

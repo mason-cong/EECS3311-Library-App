@@ -6,5 +6,5 @@ public interface App {
 	public void manageItems();
 	public void readOnlineBooks();
 	public void requests();
-	public boolean payment();
+	public void payment();
 }
