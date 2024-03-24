@@ -1,7 +1,8 @@
 package App;
 
-import ItemClass.Item;
-import ClientClass.Client;
+import ItemClass.*;
+import Payment.*;
+import ClientClass.*;
 import javax.swing.*;
 import com.csvreader.CsvReader;
 import java.awt.*;
@@ -11,24 +12,28 @@ import java.io.IOException;
 public class BaseApp extends JFrame implements App {
 
 		String clientType;
+		JComboBox<String> paymentTypes;
+		PaymentStrategy paymentInfo;
+		JLabel cardDetail;
 	
 	//Copmponents to the app screen
 		JPanel appScreen;
 		JMenuBar appMenu;
+		JMenu menu;
 		
 		JPanel loginPanel;
 		JPanel searchPanel = new JPanel();
 		JPanel itemsPanel = new JPanel();
 		JPanel requestPanel = new JPanel();
-		JPanel paymentPanel = new JPanel();
-		
+		JPanel paymentPanel;
+		JPanel readPanel = new JPanel();
 		
 		public BaseApp() {
 			this.appScreen = new JPanel(new CardLayout());
 			this.appMenu = new JMenuBar();
 			login();
-			//setupMenu();
-			//setupPanel();
+			setupMenu();
+			setupPanel();
 		}
 		
 		private void changeScreen(String screenName) {
@@ -37,35 +42,41 @@ public class BaseApp extends JFrame implements App {
 		
 		private void setupMenu() {
 			//Create menu tab for user to switch between app functions
-			JMenu menu = new JMenu("Functions");
+			menu = new JMenu("Functions");
 			JMenuItem searchScreen = new JMenuItem("Search");
 			JMenuItem itemsScreen = new JMenuItem("Rented Items");
 			JMenuItem requestScreen = new JMenuItem("Request");
 			JMenuItem paymentScreen = new JMenuItem("Payment");
+			JMenuItem readerScreen = new JMenuItem("Newsletter");
 			
 			//Set the menu to be able to switch between panels
 			searchScreen.addActionListener(selected -> changeScreen("Search"));
 			itemsScreen.addActionListener(selected -> changeScreen("Rented Items"));
 			requestScreen.addActionListener(selected -> changeScreen("Request"));
 			paymentScreen.addActionListener(selected -> changeScreen("Payment"));
+			readerScreen.addActionListener(selected -> changeScreen("Newsletter"));
 			
 			//Add the different menu options to the main menu
 			menu.add(searchScreen);
 			menu.add(itemsScreen);
 			menu.add(requestScreen);
 			menu.add(paymentScreen);
+			menu.add(readerScreen);
 			
 			appMenu.add(menu);
 			appMenu.setVisible(false);
 		}
 		
 		private void setupPanel() {
+			createPayment();
+			
 			appScreen.setPreferredSize(new Dimension(1280, 960));
 			appScreen.add(loginPanel, "Login");
 			appScreen.add(searchPanel, "Search");
 			appScreen.add(itemsPanel, "Rented Items");
 			appScreen.add(requestPanel, "Request");
 			appScreen.add(paymentPanel, "Payment");
+			appScreen.add(readPanel, "Newsletter");
 			
 			setLayout(new BorderLayout());
 			add(appMenu, BorderLayout.NORTH);
@@ -109,7 +120,7 @@ public class BaseApp extends JFrame implements App {
 					if (client.getEmail().equals(email) && client.getPassword().equals(password)) {
 						success = true;
 						this.clientType = clientType;
-						
+						decorateApp();
 					}
 				}
 			} catch (FileNotFoundException e) {
@@ -124,21 +135,30 @@ public class BaseApp extends JFrame implements App {
 		}
 
 		
-	public BaseApp decorateApp(BaseApp app) {
+	public void decorateApp() {
 		switch(clientType) {
 		  	case "Faculty":
-		    // code block
+		  		//FacultyApp app = new StudentApp(this);
+	  		 	appMenu.setVisible(true);
+				changeScreen("Rented Items");
 		    break;
 		  	case "NonFacultyStaff":
-		    // code block
+		  		//NonFacultyStaffApp app = new StudentApp(this);
+	  		 	appMenu.setVisible(true);
+				changeScreen("Rented Items");
 		    break;
 		  	case "Student":
-		  		return StudentApp app = new StudentApp(app);
+		  		 StudentApp app = new StudentApp(this);
+		  		 	appMenu.setVisible(true);
+					changeScreen("Rented Items");
 			break;
 		  	case "Visitor":
+		  		//VisitorApp app = new StudentApp(this);
+	  		 	appMenu.setVisible(true);
+				changeScreen("Rented Items");
 		  	break;
 		  default:
-		    // code block
+		    
 		}
 	}
 		
@@ -170,8 +190,54 @@ public class BaseApp extends JFrame implements App {
 
 	@Override
 	public boolean payment() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	public void changePayment(PaymentStrategy strategy) {
+		this.paymentInfo = strategy;
+	}
+	
+	private void createPayment() {
+		paymentPanel = new JPanel();
+		paymentPanel.setLayout(null);
+		
+		String[] types = {"Debit", "Credit", "Mobile Wallet"};
+		paymentTypes = new JComboBox<String>(types);
+		paymentTypes.setBounds(960,100,100,50);
+		paymentTypes.addActionListener(selected -> doPayment((String) paymentTypes.getSelectedItem()));
+		
+		JLabel expiry = new JLabel("Expiry");
+		JLabel security = new JLabel("Security Code");
+		JTextField expiryText = new JTextField();
+		JTextField securityText = new JTextField();
+		JButton submit = new JButton("SUBMIT");
+		
+		expiry.setBounds(420,400,100,50);
+		expiryText.setBounds(520,400,300,50);
+		security.setBounds(420,450,100,50);
+		securityText.setBounds(520,450,300,50);
+		submit.setBounds(550,600,100,50);
+		
+		paymentPanel.add(expiry);
+		paymentPanel.add(expiryText);
+		paymentPanel.add(security);
+		paymentPanel.add(securityText);
+		paymentPanel.add(submit);
+		paymentPanel.add(paymentTypes);
+	}
+	
+	private void doPayment(String paymentType) {
+		switch (paymentType) {
+		case ("Debit"):
+			changePayment(new DebitStrategy());
+		break;
+		case ("Credit"):
+			changePayment(new CreditStrategy());
+		break;
+		case ("Mobile Wallet"):
+			changePayment(new MobileWalletStrategy());
+		break;
+		}
+		
+	}
 }

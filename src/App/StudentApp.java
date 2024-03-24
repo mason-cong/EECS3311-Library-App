@@ -27,79 +27,69 @@ public class StudentApp extends JFrame implements App {
 	BaseApp decorated;
 	
 	//Copmponents to the app screen
-	JPanel appScreen;
+	/*JPanel appScreen;
 	JMenuBar appMenu;
+	JMenu menu;
 	
 	JPanel loginPanel;
 	JPanel searchPanel = new JPanel();
 	JPanel itemsPanel = new JPanel();
 	JPanel requestPanel = new JPanel();
 	JPanel paymentPanel = new JPanel();
+	JPanel readPanel = new JPanel();*/
+	JPanel textPanel = new JPanel();
 	
 	
 	public StudentApp(BaseApp app) {
 		this.decorated = app;
-		this.appScreen = new JPanel(new CardLayout());
-		this.appMenu = new JMenuBar();
-		login();
-		setupMenu();
 		setupPanel();
 	}
 	
-	private void changeScreen(String screenName) {
+	/*private void changeScreen(String screenName) {
 		((CardLayout) appScreen.getLayout()).show(appScreen, screenName);
-	}
+	}*/
 	
-	private void setupMenu() {
+	/*private void setupMenu() {
 		//Create menu tab for user to switch between app functions
-		JMenu menu = new JMenu("Functions");
+		menu = new JMenu("Functions");
 		JMenuItem searchScreen = new JMenuItem("Search");
 		JMenuItem itemsScreen = new JMenuItem("Rented Items");
 		JMenuItem requestScreen = new JMenuItem("Request");
 		JMenuItem paymentScreen = new JMenuItem("Payment");
+		JMenuItem readerScreen = new JMenuItem("Reader");
 		
 		//Set the menu to be able to switch between panels
 		searchScreen.addActionListener(selected -> changeScreen("Search"));
 		itemsScreen.addActionListener(selected -> changeScreen("Rented Items"));
 		requestScreen.addActionListener(selected -> changeScreen("Request"));
 		paymentScreen.addActionListener(selected -> changeScreen("Payment"));
+		readerScreen.addActionListener(selected -> changeScreen("Reader"));
 		
 		//Add the different menu options to the main menu
 		menu.add(searchScreen);
 		menu.add(itemsScreen);
 		menu.add(requestScreen);
 		menu.add(paymentScreen);
+		menu.add(readerScreen);
 		
 		appMenu.add(menu);
 		appMenu.setVisible(false);
-	}
+	}*/
 	
-	private void setupPanel() {
-		appScreen.setPreferredSize(new Dimension(1280, 960));
-		appScreen.add(loginPanel, "Login");
-		appScreen.add(searchPanel, "Search");
-		appScreen.add(itemsPanel, "Rented Items");
-		appScreen.add(requestPanel, "Request");
-		appScreen.add(paymentPanel, "Payment");
+	public void setupPanel() {
+		JMenuItem textbookScreen = new JMenuItem("Textbook");
+		decorated.menu.add(textbookScreen);
+		decorated.appScreen.add(textPanel, "TextBook");
 		
-		setLayout(new BorderLayout());
-		add(appMenu, BorderLayout.NORTH);
-		add(appScreen, BorderLayout.CENTER);
 	}
 	
 	
-	public static void main(String args[]) throws Exception {
-		VisitorApp app = new VisitorApp();
-		
-		//app.setSize(1280,960);
-		app.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		app.setVisible(true);
-	}
+
 	
 	@Override
 	public void login() {
 		//Creating the UI
-		JLabel userLabel = new JLabel("Email");
+		/*JLabel userLabel = new JLabel("Email");
 		JLabel passLabel = new JLabel("Password");
 		JTextField userText = new JTextField();
 		JTextField passText = new JPasswordField();
@@ -112,15 +102,15 @@ public class StudentApp extends JFrame implements App {
 		loginPanel.add(passText);
 		loginPanel.add(submit);
 	
-		submit.addActionListener(e -> checkDetails(userText.getText(), passText.getText()));
+		submit.addActionListener(e -> checkDetails(userText.getText(), passText.getText()));*/
 		
 	}
 
 	void checkDetails(String email, String password) {
-		boolean success = false;
+		/*boolean success = false;
 		String path = "C:\\Users\\tusit\\eclipse-workspace\\YorkULibraryApp\\logindetails.csv";
 		try {
-			CsvReader reader = new CsvReader(path); 
+			CsvReader reader = new CsvReader(path); f
 			reader.readHeaders();
 			
 			while(reader.readRecord()) { 
@@ -141,10 +131,9 @@ public class StudentApp extends JFrame implements App {
 			e.printStackTrace();
 		}
 		if (success == false) {
-			JOptionPane.showMessageDialog(appScreen, "Incorrect details");
+			JOptionPane.showMessageDialog(appScreen, "Incorrect details");*/
 		} 
 		
-	}
 
 	@Override
 	public boolean register() {
