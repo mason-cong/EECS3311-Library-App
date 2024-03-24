@@ -60,7 +60,7 @@ public class VisitorApp extends JFrame implements App {
 		appMenu.setVisible(false);
 	}
 	
-	private void setupPanel() {
+	public void setupPanel() {
 		appScreen.setPreferredSize(new Dimension(1280, 960));
 		appScreen.add(loginPanel, "Login");
 		appScreen.add(searchPanel, "Search");
@@ -77,7 +77,7 @@ public class VisitorApp extends JFrame implements App {
 	public static void main(String args[]) throws Exception {
 		VisitorApp app = new VisitorApp();
 		
-		//app.setSize(1280,960);
+		app.setSize(1280,960);
 		app.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		app.setVisible(true);
 	}
