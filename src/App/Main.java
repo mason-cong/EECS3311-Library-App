@@ -10,7 +10,8 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 		BaseApp newApp = new BaseApp();
-		newApp.clientType;
+		newApp.setSize(1280,960);
+		newApp.setVisible(true);
 		
 	}
 }
