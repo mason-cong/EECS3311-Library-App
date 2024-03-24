@@ -141,7 +141,7 @@ public class VisitorApp extends JFrame implements App {
 	public void register() {
 	    // Creating the UI
 	    JLabel nameLabel = new JLabel("Name");
-	    JLabel idLabel = new JLabel("ID");
+	    JLabel idLabel = new JLabel("ID");//maybe if they're visitor write null? 
 	    JLabel userLabel = new JLabel("Email");
 	    JLabel passLabel = new JLabel("Password");
 	    JTextField nameText = new JTextField();
@@ -169,7 +169,7 @@ public class VisitorApp extends JFrame implements App {
 	    submit.addActionListener(e -> registerDetails(nameText.getText(), idText.getText(), userText.getText(), passText.getText()));
 	}
 
-	private void registerDetails(String name, String id, String email, String password) {
+	private void registerDetails(String name, String id /*maybe null*/, String email, String password) {
 	    // Registration logic goes here
 	}
 	@Override

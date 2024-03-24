@@ -2,7 +2,9 @@ package App;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,11 +28,12 @@ public class StudentApp extends JFrame implements App {
 	
 	BaseApp decorated;
 	
-	//Copmponents to the app screen
+	//Components to the app screen
 	JPanel appScreen;
 	JMenuBar appMenu;
 	
 	JPanel loginPanel;
+	JPanel registerPanel;
 	JPanel searchPanel = new JPanel();
 	JPanel itemsPanel = new JPanel();
 	JPanel requestPanel = new JPanel();
@@ -105,6 +108,11 @@ public class StudentApp extends JFrame implements App {
 		JTextField passText = new JPasswordField();
 		JButton submit = new JButton("SUBMIT");
 		
+		// Set background color and font for the submit button
+		submit.setBackground(new Color(50, 150, 250));
+		submit.setForeground(Color.WHITE);
+		submit.setFont(new Font("Arial", Font.BOLD, 14)); 
+		
 		loginPanel = new JPanel(new GridLayout(3, 1));
 		loginPanel.add(userLabel);
 		loginPanel.add(userText);
@@ -147,11 +155,40 @@ public class StudentApp extends JFrame implements App {
 	}
 
 	@Override
-	public boolean register() {
-		// TODO Auto-generated method stub
-		return false;
+	public void register() {
+	    // Creating the UI
+	    JLabel nameLabel = new JLabel("Name");
+	    JLabel idLabel = new JLabel("ID");
+	    JLabel userLabel = new JLabel("Email");
+	    JLabel passLabel = new JLabel("Password");
+	    JTextField nameText = new JTextField();
+	    JTextField idText = new JTextField();
+	    JTextField userText = new JTextField();
+	    JTextField passText = new JPasswordField();
+	    JButton submit = new JButton("REGISTER");
+
+	    // Set background color and font for the submit button
+	    submit.setBackground(new Color(50, 150, 250));
+	    submit.setForeground(Color.WHITE);
+	    submit.setFont(new Font("Arial", Font.BOLD, 14));
+
+	    registerPanel = new JPanel(new GridLayout(5, 1));
+	    registerPanel.add(nameLabel);
+	    registerPanel.add(nameText);
+	    registerPanel.add(idLabel);
+	    registerPanel.add(idText);
+	    registerPanel.add(userLabel);
+	    registerPanel.add(userText);
+	    registerPanel.add(passLabel);
+	    registerPanel.add(passText);
+	    registerPanel.add(submit);
+
+	    submit.addActionListener(e -> registerDetails(nameText.getText(), idText.getText(), userText.getText(), passText.getText()));
 	}
 
+	private void registerDetails(String name, String id, String email, String password) {
+	    // Registration logic goes here
+	}
 	@Override
 	public void manageItems() {
 		// TODO Auto-generated method stub
