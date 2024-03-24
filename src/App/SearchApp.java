@@ -95,7 +95,7 @@ public class SearchApp extends JFrame {
 			i.setId(reader.get("id"));
 			i.setName(reader.get("name"));
 			i.setAvailability(Boolean.parseBoolean(reader.get("availability")));
-			items.add(i);
+			items.add(i); 
 		}
 	}
 	
