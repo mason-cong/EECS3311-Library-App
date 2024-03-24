@@ -12,6 +12,7 @@ import java.io.IOException;
 public class BaseApp extends JFrame implements App {
 
 		String clientType;
+		String email;
 		JComboBox<String> paymentTypes;
 		PaymentStrategy paymentInfo;
 		JLabel cardDetail;
@@ -28,6 +29,7 @@ public class BaseApp extends JFrame implements App {
 		JPanel paymentPanel;
 		JPanel readPanel = new JPanel();
 		
+		
 		public BaseApp() {
 			this.appScreen = new JPanel(new CardLayout());
 			this.appMenu = new JMenuBar();
@@ -36,9 +38,11 @@ public class BaseApp extends JFrame implements App {
 			setupPanel();
 		}
 		
+		
 		private void changeScreen(String screenName) {
 			((CardLayout) appScreen.getLayout()).show(appScreen, screenName);
 		}
+		
 		
 		private void setupMenu() {
 			//Create menu tab for user to switch between app functions
@@ -67,6 +71,7 @@ public class BaseApp extends JFrame implements App {
 			appMenu.setVisible(false);
 		}
 		
+		
 		private void setupPanel() {
 			createPayment();
 			
@@ -82,7 +87,6 @@ public class BaseApp extends JFrame implements App {
 			add(appMenu, BorderLayout.NORTH);
 			add(appScreen, BorderLayout.CENTER);
 		}
-		
 		
 	
 		@Override
@@ -105,6 +109,7 @@ public class BaseApp extends JFrame implements App {
 			
 		}
 
+		
 		void checkDetails(String email, String password) {
 			boolean success = false;
 			String path = "C:\\Users\\tusit\\eclipse-workspace\\YorkULibraryApp\\logindetails.csv";
@@ -119,6 +124,7 @@ public class BaseApp extends JFrame implements App {
 						String clientType = reader.get("type");
 					if (client.getEmail().equals(email) && client.getPassword().equals(password)) {
 						success = true;
+						this.email = email;
 						this.clientType = clientType;
 						decorateApp();
 					}
@@ -193,8 +199,18 @@ public class BaseApp extends JFrame implements App {
 		return false;
 	}
 
-	public void changePayment(PaymentStrategy strategy) {
-		this.paymentInfo = strategy;
+	public void changePayment(String strategy) {
+		switch (strategy) {
+		case ("Debit"):
+			paymentInfo = new DebitStrategy(email);
+		break;
+		case ("Credit"):
+			paymentInfo = new CreditStrategy(email);
+		break;
+		case ("Mobile Wallet"):
+			paymentInfo = new MobileWalletStrategy(email);
+		break;
+		}
 	}
 	
 	private void createPayment() {
@@ -204,20 +220,27 @@ public class BaseApp extends JFrame implements App {
 		String[] types = {"Debit", "Credit", "Mobile Wallet"};
 		paymentTypes = new JComboBox<String>(types);
 		paymentTypes.setBounds(960,100,100,50);
-		paymentTypes.addActionListener(selected -> doPayment((String) paymentTypes.getSelectedItem()));
+		paymentTypes.addActionListener(selected -> changePayment((String) paymentTypes.getSelectedItem()));
 		
+		JLabel cardnumber = new JLabel("Card Number");
 		JLabel expiry = new JLabel("Expiry");
 		JLabel security = new JLabel("Security Code");
+		JTextField cardText = new JTextField();
 		JTextField expiryText = new JTextField();
 		JTextField securityText = new JTextField();
 		JButton submit = new JButton("SUBMIT");
+		submit.addActionListener(selected -> doPayment(paymentInfo));
 		
+		cardnumber.setBounds(420,350,100,50);
+		cardText.setBounds(520,350,300,50);
 		expiry.setBounds(420,400,100,50);
 		expiryText.setBounds(520,400,300,50);
 		security.setBounds(420,450,100,50);
 		securityText.setBounds(520,450,300,50);
 		submit.setBounds(550,600,100,50);
 		
+		paymentPanel.add(cardnumber);
+		paymentPanel.add(cardText);
 		paymentPanel.add(expiry);
 		paymentPanel.add(expiryText);
 		paymentPanel.add(security);
@@ -226,18 +249,8 @@ public class BaseApp extends JFrame implements App {
 		paymentPanel.add(paymentTypes);
 	}
 	
-	private void doPayment(String paymentType) {
-		switch (paymentType) {
-		case ("Debit"):
-			changePayment(new DebitStrategy());
-		break;
-		case ("Credit"):
-			changePayment(new CreditStrategy());
-		break;
-		case ("Mobile Wallet"):
-			changePayment(new MobileWalletStrategy());
-		break;
-		}
+	private void doPayment(PaymentStrategy strategy) {
+		paymentInfo.executePayment();
 		
 	}
 }
