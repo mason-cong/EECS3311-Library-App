@@ -1,12 +1,12 @@
-package App;
+package AppClass;
 
 import javax.swing.*;
 
-public class NonFacultyStaffApp extends JFrame implements App {
+public class FacultyApp extends JFrame implements App {
 
 	BaseApp decorated;
 	
-	public NonFacultyStaffApp(BaseApp app) {
+	public FacultyApp(BaseApp app) {
 		this.decorated = app;
 		//setupPanel();
 	}

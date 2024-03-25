@@ -1,4 +1,4 @@
-package App;
+package AppClass;
 
 public class GenerateReaderFactory {
 	public static  Reader generateReader(String type) {

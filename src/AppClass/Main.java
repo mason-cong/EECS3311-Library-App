@@ -1,4 +1,4 @@
-package App;
+package AppClass;
 
 import javax.swing.JFrame;
 

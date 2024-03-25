@@ -1,4 +1,4 @@
-package App;
+package AppClass;
 
 public interface App {
 	public void login();

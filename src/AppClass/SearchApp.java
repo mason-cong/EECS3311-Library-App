@@ -1,4 +1,4 @@
-package App;
+package AppClass;
 
 import javax.swing.*;
 
@@ -53,7 +53,6 @@ public class SearchApp extends JFrame {
 		panel.add(resultPanel);
 		
 		this.add(panel, BorderLayout.CENTER);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 	}
@@ -107,12 +106,6 @@ public class SearchApp extends JFrame {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-	}
-	
-
-	public static void main(String args[]) throws Exception {
-		SearchApp app = new SearchApp();
-
 	}
 
 }

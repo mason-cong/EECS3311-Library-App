@@ -1,12 +1,15 @@
-package App;
+package AppClass;
 
 import ItemClass.*;
 import Payment.*;
 import ClientClass.*;
 import javax.swing.*;
 import com.csvreader.CsvReader;
+import com.csvreader.CsvWriter;
+
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class BaseApp extends JFrame implements App {
@@ -28,7 +31,6 @@ public class BaseApp extends JFrame implements App {
 		JPanel itemsPanel = new JPanel();
 		JPanel requestPanel = new JPanel();
 		JPanel paymentPanel;
-		JPanel registerPanel;
 		JPanel readPanel = new JPanel();
 		
 		
@@ -37,6 +39,7 @@ public class BaseApp extends JFrame implements App {
 			this.appMenu = new JMenuBar();
 			login();
 			register();
+			requests();
 			setupMenu();
 			setupPanel();
 		}
@@ -46,6 +49,8 @@ public class BaseApp extends JFrame implements App {
 			switch (screenName) {
 			case "Newsletter":
 				readOnlineBooks();
+			case "Search":
+				SearchApp app = new SearchApp();
 			}
 			
 			((CardLayout) appScreen.getLayout()).show(appScreen, screenName);
@@ -217,13 +222,42 @@ public class BaseApp extends JFrame implements App {
 	    registerPanel.add(passLabel);
 	    registerPanel.add(passText);
 	    registerPanel.add(submit);
-
 	    submit.addActionListener(e -> registerDetails(nameText.getText(), idText.getText(), userText.getText(), passText.getText()));
 	}
 
 
 	private void registerDetails(String name, String id, String email, String password) {
-	    // Registration logic goes here
+	    char result = id.charAt(0);
+	    String type;
+	
+		switch (result) {
+	    case ('1'):
+	    	type = "Faculty";
+	    break;
+	    case ('2'):
+	    	type = "NonFacultyStaff";
+	    break;
+	    case ('3'):
+	    	type = "Student";
+	    	break;
+	    default:
+	    	type = "Visitor";
+	    	break;
+	    } 
+	    try {		
+			CsvWriter csvOutput = new CsvWriter(new FileWriter("logindetails.csv", true), ',');
+			//file order is (id, name, availability)
+			csvOutput.write(email);
+			csvOutput.write(password);
+		    csvOutput.write(type);
+			csvOutput.endRecord();
+			csvOutput.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
@@ -269,26 +303,27 @@ public class BaseApp extends JFrame implements App {
 	    // Request processing logic goes here
 	    //email entered identifies the user to know who made the request
 	    String requesterEmail = email;
-	    
-	    CsvWriter csvWriter = new CsvWriter("requests.csv");
 
 	    // Write the request data to the CSV file
-	    csvWriter.writeNext(new String[]{"Title", "Author", "Requester Email"});
-	    csvWriter.writeNext(new String[]{title, author, requesterEmail});
-
-	    // Close the CSV writer
-	    csvWriter.close();
-
+	    try {		
+			CsvWriter csvOutput = new CsvWriter(new FileWriter("requests.csv", true), ',');
+			//file order is (id, name, availability)
+			csvOutput.write(email);
+			csvOutput.write(title);
+		    csvOutput.write(author);
+			csvOutput.endRecord();
+			csvOutput.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	    // Show a success message
 	    JOptionPane.showMessageDialog(appScreen, "Your request has been submitted successfully!");
 	    // Process the request and notify the user if the request is successful or not
 	    //maybe use the email to notify the user?
 	}
-
-	/*@Override
-	public boolean payment() {
-		return false;
-	}*/
 
 
 	public void changePayment(String strategy) {
