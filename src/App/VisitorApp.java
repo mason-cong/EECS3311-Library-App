@@ -24,11 +24,8 @@ public class VisitorApp extends JFrame implements App {
 	JPanel paymentPanel = new JPanel();
 	
 	
-	public VisitorApp() {
-		this.appScreen = new JPanel(new CardLayout());
-		this.appMenu = new JMenuBar();
-		login();
-		setupMenu();
+	public VisitorApp(BaseApp app) {
+		this.decorated = app;
 		setupPanel();
 	}
 	
@@ -73,15 +70,7 @@ public class VisitorApp extends JFrame implements App {
 		add(appScreen, BorderLayout.CENTER);
 	}
 	
-	
-	public static void main(String args[]) throws Exception {
-		VisitorApp app = new VisitorApp();
-		
-		app.setSize(1280,960);
-		app.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		app.setVisible(true);
-	}
-	
+
 	@Override
 	public void login() {
 		//Creating the UI
@@ -191,9 +180,8 @@ public class VisitorApp extends JFrame implements App {
 	}
 
 	@Override
-	public boolean payment() {
+	public void payment() {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

@@ -1,11 +1,10 @@
 package App;
 
 public class GenerateReaderFactory {
-	public Reader generateReader() {
-		String y = "a";
-		if (y == "b") {
+	public static  Reader generateReader(String type) {
+		if (type.equals("news")) {
 			return new NewsletterReader();
-		} else if (y == "c") {
+		} else if (type.equals("textbook")) {
 			return new TextbookReader();
 		} else {
 			return null;

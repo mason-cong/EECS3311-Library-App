@@ -6,6 +6,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -30,178 +32,47 @@ public class StudentApp extends JFrame implements App {
 
 	JPanel appScreen;
 
-	//Components to the app screen
-	/*JPanel appScreen;
-
-	JMenuBar appMenu;
-	JMenu menu;
-	
-	JPanel loginPanel;
-	JPanel registerPanel;
-	JPanel searchPanel = new JPanel();
-	JPanel itemsPanel = new JPanel();
-	JPanel requestPanel = new JPanel();
-	JPanel paymentPanel = new JPanel();
-	JPanel readPanel = new JPanel();*/
 	JPanel textPanel = new JPanel();
 	
+	TextbookReader text = (TextbookReader) GenerateReaderFactory.generateReader("textbook");
 	
 	public StudentApp(BaseApp app) {
 		this.decorated = app;
 		setupPanel();
 	}
 	
-	/*private void changeScreen(String screenName) {
-		((CardLayout) appScreen.getLayout()).show(appScreen, screenName);
-	}*/
-	
-	/*private void setupMenu() {
-		//Create menu tab for user to switch between app functions
-		menu = new JMenu("Functions");
-		JMenuItem searchScreen = new JMenuItem("Search");
-		JMenuItem itemsScreen = new JMenuItem("Rented Items");
-		JMenuItem requestScreen = new JMenuItem("Request");
-		JMenuItem paymentScreen = new JMenuItem("Payment");
-		JMenuItem readerScreen = new JMenuItem("Reader");
-		
-		//Set the menu to be able to switch between panels
-		searchScreen.addActionListener(selected -> changeScreen("Search"));
-		itemsScreen.addActionListener(selected -> changeScreen("Rented Items"));
-		requestScreen.addActionListener(selected -> changeScreen("Request"));
-		paymentScreen.addActionListener(selected -> changeScreen("Payment"));
-		readerScreen.addActionListener(selected -> changeScreen("Reader"));
-		
-		//Add the different menu options to the main menu
-		menu.add(searchScreen);
-		menu.add(itemsScreen);
-		menu.add(requestScreen);
-		menu.add(paymentScreen);
-		menu.add(readerScreen);
-		
-		appMenu.add(menu);
-		appMenu.setVisible(false);
-	}*/
-	
 	public void setupPanel() {
 		JMenuItem textbookScreen = new JMenuItem("Textbook");
 		decorated.menu.add(textbookScreen);
-		decorated.appScreen.add(textPanel, "TextBook");
-		
+		decorated.appScreen.add(textPanel, "Textbook");
+		textbookScreen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				decorated.changeScreen("Textbook");
+				text.setReader();
+			}
+		});
 	}
-	
-	
-
 	
 	@Override
 	public void login() {
-		//Creating the UI
-		/*JLabel userLabel = new JLabel("Email");
-		JLabel passLabel = new JLabel("Password");
-		JTextField userText = new JTextField();
-		JTextField passText = new JPasswordField();
-		JButton submit = new JButton("SUBMIT");
-		
-		// Set background color and font for the submit button
-		submit.setBackground(new Color(50, 150, 250));
-		submit.setForeground(Color.WHITE);
-		submit.setFont(new Font("Arial", Font.BOLD, 14)); 
-		
-		loginPanel = new JPanel(new GridLayout(3, 1));
-		loginPanel.add(userLabel);
-		loginPanel.add(userText);
-		loginPanel.add(passLabel);
-		loginPanel.add(passText);
-		loginPanel.add(submit);
-	
-		submit.addActionListener(e -> checkDetails(userText.getText(), passText.getText()));*/
-		
 	}
-
-	void checkDetails(String email, String password) {
-		/*boolean success = false;
-		String path = "C:\\Users\\tusit\\eclipse-workspace\\YorkULibraryApp\\logindetails.csv";
-		try {
-			CsvReader reader = new CsvReader(path); f
-			reader.readHeaders();
-			
-			while(reader.readRecord()) { 
-				Client client = new Client();
-					client.setEmail(reader.get("email"));
-					client.setPassword(reader.get("password"));
-					String clientType = reader.get("type");
-				if (client.getEmail().equals(email) && client.getPassword().equals(password)) {
-					success = true;
-					appMenu.setVisible(true);
-					changeScreen("Rented Items");
-					break;
-				}
-			}
-		} catch (FileNotFoundException e) {
-            e.printStackTrace();
-		} catch (IOException e){
-			e.printStackTrace();
-		}
-		if (success == false) {
-			JOptionPane.showMessageDialog(appScreen, "Incorrect details");*/
-		} 
-		
 
 	@Override
 	public void register() {
-	    /*// Creating the UI
-	    JLabel nameLabel = new JLabel("Name");
-	    JLabel idLabel = new JLabel("ID");
-	    JLabel userLabel = new JLabel("Email");
-	    JLabel passLabel = new JLabel("Password");
-	    JTextField nameText = new JTextField();
-	    JTextField idText = new JTextField();
-	    JTextField userText = new JTextField();
-	    JTextField passText = new JPasswordField();
-	    JButton submit = new JButton("REGISTER");
 
-	    // Set background color and font for the submit button
-	    submit.setBackground(new Color(50, 150, 250));
-	    submit.setForeground(Color.WHITE);
-	    submit.setFont(new Font("Arial", Font.BOLD, 14));
-
-	    registerPanel = new JPanel(new GridLayout(5, 1));
-	    registerPanel.add(nameLabel);
-	    registerPanel.add(nameText);
-	    registerPanel.add(idLabel);
-	    registerPanel.add(idText);
-	    registerPanel.add(userLabel);
-	    registerPanel.add(userText);
-	    registerPanel.add(passLabel);
-	    registerPanel.add(passText);
-	    registerPanel.add(submit);
-
-	    submit.addActionListener(e -> registerDetails(nameText.getText(), idText.getText(), userText.getText(), passText.getText()));
-	}
-
-	private void registerDetails(String name, String id, String email, String password) {
-	    // Registration logic goes here
-	}*/
 	@Override
 	public void manageItems() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void readOnlineBooks() {
-		// TODO Auto-generated method stub
-		
+	public void readOnlineBooks() {	
 	}
 
 	@Override
 	public void requests() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public boolean payment() {
-		// TODO Auto-generated method stub
-		return false;
+	public void payment() {
 	}
 }

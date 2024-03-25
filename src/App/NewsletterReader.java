@@ -23,10 +23,5 @@ public class NewsletterReader extends Reader {
 		frame.setSize(1280, 960);
 		frame.setVisible(true);
 	}
-	
-	public static void main(String args[]) throws Exception {
-		NewsletterReader testing = new NewsletterReader();
-		testing.setReader();
-	}
-	
+
 }
