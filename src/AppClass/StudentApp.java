@@ -1,4 +1,4 @@
-package App;
+package AppClass;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -59,7 +59,7 @@ public class StudentApp extends JFrame implements App {
 
 	@Override
 	public void register() {
-
+	}
 	@Override
 	public void manageItems() {
 	}
