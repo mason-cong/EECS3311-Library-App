@@ -18,9 +18,7 @@ public class NonFacultyStaffApp extends JFrame implements App {
 	}
 
 	@Override
-	public boolean register() {
-		// TODO Auto-generated method stub
-		return false;
+	public void register() {
 	}
 
 	@Override

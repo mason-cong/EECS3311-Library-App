@@ -1,11 +1,19 @@
 package App;
 
+import java.io.IOException;
+
+import javax.swing.*;
+
 public class TextbookReader extends Reader {
 
-	@Override
 	protected void setReader() {
-		// TODO Auto-generated method stub
-		
+		JPanel reader = new JPanel();
+		JLabel download = new JLabel("Access textbooks");
+		reader.add(download);
+		JFrame frame = new JFrame("YULA");
+		frame.add(reader);
+		frame.setSize(1280, 960);
+		frame.setVisible(true);
 	}
 
 }

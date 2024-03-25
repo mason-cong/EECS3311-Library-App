@@ -12,6 +12,7 @@ public class Main {
 		BaseApp newApp = new BaseApp();
 		newApp.setSize(1280,960);
 		newApp.setVisible(true);
-		
+		newApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		newApp.pack();
 	}
 }

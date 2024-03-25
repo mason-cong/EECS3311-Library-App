@@ -23,6 +23,7 @@ public class BaseApp extends JFrame implements App {
 		JMenu menu;
 		
 		JPanel loginPanel;
+		JPanel registerPanel;
 		JPanel searchPanel = new JPanel();
 		JPanel itemsPanel = new JPanel();
 		JPanel requestPanel = new JPanel();
@@ -34,13 +35,20 @@ public class BaseApp extends JFrame implements App {
 			this.appScreen = new JPanel(new CardLayout());
 			this.appMenu = new JMenuBar();
 			login();
+			register();
 			setupMenu();
 			setupPanel();
 		}
 		
 		
-		private void changeScreen(String screenName) {
+		void changeScreen(String screenName) {
+			switch (screenName) {
+			case "Newsletter":
+				readOnlineBooks();
+			}
+			
 			((CardLayout) appScreen.getLayout()).show(appScreen, screenName);
+			
 		}
 		
 		
@@ -82,6 +90,7 @@ public class BaseApp extends JFrame implements App {
 			appScreen.add(requestPanel, "Request");
 			appScreen.add(paymentPanel, "Payment");
 			appScreen.add(readPanel, "Newsletter");
+			appScreen.add(registerPanel, "Register");
 			
 			setLayout(new BorderLayout());
 			add(appMenu, BorderLayout.NORTH);
@@ -97,6 +106,7 @@ public class BaseApp extends JFrame implements App {
 			JTextField userText = new JTextField();
 			JTextField passText = new JPasswordField();
 			JButton submit = new JButton("SUBMIT");
+			JButton register = new JButton("REGISTER");
 			
 			loginPanel = new JPanel(new GridLayout(3, 1));
 			loginPanel.add(userLabel);
@@ -104,8 +114,10 @@ public class BaseApp extends JFrame implements App {
 			loginPanel.add(passLabel);
 			loginPanel.add(passText);
 			loginPanel.add(submit);
+			loginPanel.add(register);
 		
 			submit.addActionListener(e -> checkDetails(userText.getText(), passText.getText()));
+			register.addActionListener(e -> changeScreen("Register"));
 			
 		}
 
@@ -147,21 +159,25 @@ public class BaseApp extends JFrame implements App {
 		  		FacultyApp app1 = new FacultyApp(this);
 	  		 	appMenu.setVisible(true);
 				changeScreen("Rented Items");
+				app1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    break;
 		  	case "NonFacultyStaff":
 		  		NonFacultyStaffApp app2 = new NonFacultyStaffApp(this);
 	  		 	appMenu.setVisible(true);
 				changeScreen("Rented Items");
+				app2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    break;
 		  	case "Student":
 		  		 StudentApp app = new StudentApp(this);
 		  		 	appMenu.setVisible(true);
 					changeScreen("Rented Items");
+					app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			break;
 		  	case "Visitor":
 		  		VisitorApp app3 = new VisitorApp(this);
 	  		 	appMenu.setVisible(true);
 				changeScreen("Rented Items");
+				app3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		  	break;
 		  default:
 		    
@@ -171,9 +187,39 @@ public class BaseApp extends JFrame implements App {
 	
 	
 	@Override
-	public boolean register() {
-		// TODO Auto-generated method stub
-		return false;
+	public void register() {
+	    // Creating the UI
+	    JLabel nameLabel = new JLabel("Name");
+	    JLabel idLabel = new JLabel("ID");//maybe if they're visitor write null? 
+	    JLabel userLabel = new JLabel("Email");
+	    JLabel passLabel = new JLabel("Password");
+	    JTextField nameText = new JTextField();
+	    JTextField idText = new JTextField();
+	    JTextField userText = new JTextField();
+	    JTextField passText = new JPasswordField();
+	    JButton submit = new JButton("REGISTER");
+
+	    // Set background color and font for the submit button
+	    submit.setBackground(new Color(50, 150, 250));
+	    submit.setForeground(Color.WHITE);
+	    submit.setFont(new Font("Arial", Font.BOLD, 14));
+
+	    registerPanel = new JPanel(new GridLayout(5, 1));
+	    registerPanel.add(nameLabel);
+	    registerPanel.add(nameText);
+	    registerPanel.add(idLabel);
+	    registerPanel.add(idText);
+	    registerPanel.add(userLabel);
+	    registerPanel.add(userText);
+	    registerPanel.add(passLabel);
+	    registerPanel.add(passText);
+	    registerPanel.add(submit);
+
+	    submit.addActionListener(e -> registerDetails(nameText.getText(), idText.getText(), userText.getText(), passText.getText()));
+	}
+
+	private void registerDetails(String name, String id /*maybe null*/, String email, String password) {
+	    // Registration logic goes here
 	}
 
 	@Override
@@ -184,8 +230,8 @@ public class BaseApp extends JFrame implements App {
 
 	@Override
 	public void readOnlineBooks() {
-		// TODO Auto-generated method stub
-		
+		NewsletterReader news = (NewsletterReader) GenerateReaderFactory.generateReader("news");
+			news.setReader();
 	}
 
 	@Override
