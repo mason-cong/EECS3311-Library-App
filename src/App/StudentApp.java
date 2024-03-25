@@ -30,7 +30,7 @@ public class StudentApp extends JFrame implements App {
 
 	JPanel appScreen;
 
-	//Copmponents to the app screen
+	//Components to the app screen
 	/*JPanel appScreen;
 
 	JMenuBar appMenu;
@@ -148,7 +148,7 @@ public class StudentApp extends JFrame implements App {
 
 	@Override
 	public void register() {
-	    // Creating the UI
+	    /*// Creating the UI
 	    JLabel nameLabel = new JLabel("Name");
 	    JLabel idLabel = new JLabel("ID");
 	    JLabel userLabel = new JLabel("Email");
@@ -180,7 +180,7 @@ public class StudentApp extends JFrame implements App {
 
 	private void registerDetails(String name, String id, String email, String password) {
 	    // Registration logic goes here
-	}
+	}*/
 	@Override
 	public void manageItems() {
 		// TODO Auto-generated method stub
