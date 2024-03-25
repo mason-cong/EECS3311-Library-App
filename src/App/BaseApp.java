@@ -28,6 +28,7 @@ public class BaseApp extends JFrame implements App {
 		JPanel itemsPanel = new JPanel();
 		JPanel requestPanel = new JPanel();
 		JPanel paymentPanel;
+		JPanel registerPanel;
 		JPanel readPanel = new JPanel();
 		
 		
@@ -190,7 +191,9 @@ public class BaseApp extends JFrame implements App {
 	public void register() {
 	    // Creating the UI
 	    JLabel nameLabel = new JLabel("Name");
-	    JLabel idLabel = new JLabel("ID");//maybe if they're visitor write null? 
+
+	    JLabel idLabel = new JLabel("ID");
+
 	    JLabel userLabel = new JLabel("Email");
 	    JLabel passLabel = new JLabel("Password");
 	    JTextField nameText = new JTextField();
@@ -218,7 +221,8 @@ public class BaseApp extends JFrame implements App {
 	    submit.addActionListener(e -> registerDetails(nameText.getText(), idText.getText(), userText.getText(), passText.getText()));
 	}
 
-	private void registerDetails(String name, String id /*maybe null*/, String email, String password) {
+
+	private void registerDetails(String name, String id, String email, String password) {
 	    // Registration logic goes here
 	}
 
@@ -236,13 +240,56 @@ public class BaseApp extends JFrame implements App {
 
 	@Override
 	public void requests() {
-		// TODO Auto-generated method stub
-		
+	    // Creating the UI
+	    JLabel titleLabel = new JLabel("Title of the Book/Item");
+	    JLabel authorLabel = new JLabel("Author (if applicable)");
+	    JLabel emailLabel = new JLabel("Your Email");
+	    JTextField titleText = new JTextField();
+	    JTextField authorText = new JTextField();
+	    JTextField emailText = new JTextField();
+	    JButton submit = new JButton("SUBMIT");
+
+	    requestPanel = new JPanel(new GridLayout(4, 1));
+	    requestPanel.add(titleLabel);
+	    requestPanel.add(titleText);
+	    requestPanel.add(authorLabel);
+	    requestPanel.add(authorText);
+	    requestPanel.add(emailLabel);
+	    requestPanel.add(emailText);
+	    requestPanel.add(submit);
+
+	    submit.addActionListener(e -> submitRequest(titleText.getText(), authorText.getText(), emailText.getText()));
 	}
 
 	@Override
 	public void payment() {
 	}
+
+	private void submitRequest(String title, String author, String email) {
+	    // Request processing logic goes here
+	    //email entered identifies the user to know who made the request
+	    String requesterEmail = email;
+	    
+	    CsvWriter csvWriter = new CsvWriter("requests.csv");
+
+	    // Write the request data to the CSV file
+	    csvWriter.writeNext(new String[]{"Title", "Author", "Requester Email"});
+	    csvWriter.writeNext(new String[]{title, author, requesterEmail});
+
+	    // Close the CSV writer
+	    csvWriter.close();
+
+	    // Show a success message
+	    JOptionPane.showMessageDialog(appScreen, "Your request has been submitted successfully!");
+	    // Process the request and notify the user if the request is successful or not
+	    //maybe use the email to notify the user?
+	}
+
+	/*@Override
+	public boolean payment() {
+		return false;
+	}*/
+
 
 	public void changePayment(String strategy) {
 		switch (strategy) {

@@ -31,6 +31,7 @@ public class StudentApp extends JFrame implements App {
 	BaseApp decorated;
 
 	JPanel appScreen;
+
 	JPanel textPanel = new JPanel();
 	
 	TextbookReader text = (TextbookReader) GenerateReaderFactory.generateReader("textbook");
@@ -58,7 +59,6 @@ public class StudentApp extends JFrame implements App {
 
 	@Override
 	public void register() {
-	}
 
 	@Override
 	public void manageItems() {
