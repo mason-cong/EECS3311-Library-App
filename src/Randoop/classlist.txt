@@ -12,9 +12,3 @@ ClientClass.Faculty
 ClientClass.Student
 ClientClass.NonFacultyStaff
 ClientClass.Visitor
-AppClass.NonFacultyStaffApp
-AppClass.VisitorApp
-AppClass.BaseApp
-AppClass.StudentApp
-AppClass.FacultyApp
-AppClass.GenerateReaderFactory
