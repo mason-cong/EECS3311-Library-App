@@ -24,7 +24,7 @@ public class BaseApp extends JFrame implements App {
 		JPanel appScreen;
 		JMenuBar appMenu;
 		JMenu menu;
-		
+
 		JPanel loginPanel;
 		JPanel registerPanel;
 		JPanel searchPanel = new JPanel();
